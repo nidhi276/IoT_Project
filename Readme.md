@@ -1,59 +1,60 @@
-# 🌐 IoT MQTT Sensor Simulator for Grafana
 
-This project simulates an IoT device that continuously publishes environmental sensor data (temperature, humidity, air quality, and pressure) to an MQTT broker. 
+# 🌐 IoT MQTT Sensor Simulator
+
+This project simulates an IoT device that publishes sensor data to an MQTT broker and optionally visualizes the data in real time using Grafana.
 
 ---
 
-## 🧰 Features
+## 🔍 Overview
 
-- Simulates four sensor readings every 5 seconds
-- Publishes data to `test.mosquitto.org` over MQTT (`sensorvalues/iot`)
-- Subscribes to `sensorvalues/iot/control` to receive control commands (e.g., `Relay_Output`)
-- Sends and receives data in JSON format
-- Easily integrates with Datacake, MongoDB, and Grafana
-- Optional Docker-based visualization stack with MongoDB backend
+This simulator mimics an IoT setup that:
+
+- 📡 Publishes synthetic sensor data (temperature, humidity, air quality, pressure) every 5 seconds  
+- 📨 Subscribes to control commands (e.g., `Relay_Output` toggle) via MQTT  
+- 🧰 Uses `test.mosquitto.org` as the default MQTT broker  
+- 📊 Optionally integrates with MongoDB and Grafana via a Dockerized stack for real-time monitoring
 
 ---
 
 ## 📁 Project Structure
 
-```bash
+```
 IoT_Project/
-├── datacake_simulator.py     # Main simulator script
-├── docker-compose.yml        # Docker stack: MongoDB + Telegraf + Grafana
-├── telegraf.conf             # Telegraf config: MQTT → MongoDB
-└── README.md                 # You're here!
+├── datacake_simulator.py   # Main simulator script
+└── README.md               # Project overview and instructions
 ```
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Clone this Repository
+1. **Clone the repository:**
 
-```bash
-git clone https://github.com/nidhi276/IoT_Project.git
-cd IoT_Project
-```
+   ```bash
+   git clone https://github.com/nidhi276/IoT_Project.git
+   cd IoT_Project
+   ```
 
-### 2. Install Python Requirements
+2. **Install requirements:**
 
-```bash
-pip install paho-mqtt
-```
+   ```bash
+   pip install paho-mqtt
+   ```
 
-### 3. Run the Simulator
+3. **Run the simulator:**
 
-```bash
-python datacake_simulator.py
-```
+   ```bash
+   python datacake_simulator.py
+   ```
 
-This will start publishing data to the MQTT topic `sensorvalues/iot` and listen for relay control on `sensorvalues/iot/control`.
+   Sensor data will be published to:
+   - Topic: `sensorvalues/iot`
 
 ---
 
-## 📡 Example Sensor Payload
+## 🧪 Example Data
 
+**Sensor Payload:**
 ```json
 {
   "TEMPERATURE_C": 21.85,
@@ -63,82 +64,19 @@ This will start publishing data to the MQTT topic `sensorvalues/iot` and listen 
 }
 ```
 
----
-
-## 🧪 Example Control Message
-
+**Control Message:**
 ```json
 { "Relay_Output": true }
 ```
 
-Console output:
-```
-🔌 Relay ON - Simulated action executed.
-```
-
 ---
 
-## 🔌 Extension: Real-Time Monitoring with Docker + MongoDB + Grafana
-
-This simulator can be extended to store and visualize data using Dockerized services: **MongoDB** for storage, **Telegraf** for MQTT ingestion, and **Grafana** for real-time dashboards.
-
-### 🐳 What the Extension Includes
-
-- `docker-compose.yml`: Spins up MongoDB, Telegraf, and Grafana.
-- `telegraf.conf`: Subscribes to `sensorvalues/iot` from the MQTT broker, parses JSON, and stores it in MongoDB.
-- Grafana: Reads from MongoDB and displays sensor metrics in visual panels.
-
-### ⚙️ How to Use It
-
-1. Make sure Docker and Docker Compose are installed.
-2. Copy `docker-compose.yml` and `telegraf.conf` to your project directory.
-3. Run:
-
-```bash
-docker-compose up -d
-```
-
-4. Open Grafana at [http://localhost:3000](http://localhost:3000)  
-   Login: `admin` / `admin`
-
-5. Add **MongoDB** as a data source in Grafana:
-   - URL: `mqtt_mongodb:27017`
-   - Database: `iot_data`
-   - Collection: `sensor_readings`
-
-6. Build dashboards using your real-time sensor data.
-
-### 📡 Architecture Overview
-
-```text
-[Python Simulator] 
-     ↓ MQTT (sensorvalues/iot)
-[test.mosquitto.org Broker] 
-     ↓
-[Telegraf MQTT Input]
-     ↓
-[MongoDB → Grafana Dashboard]
-```
-
-> 💡 This setup helps you simulate and monitor an end-to-end IoT pipeline, from virtual sensors to a live dashboard.
-
----
 
 ## 🛡️ Notes
 
-- This project uses the public broker `test.mosquitto.org` (for testing/demo only)
-- For production, use a secured and authenticated broker
-- MongoDB and Grafana run locally via Docker (can be deployed to the cloud)
+- Public MQTT broker (`test.mosquitto.org`) is used for testing only  
+- Replace with a secure broker for production use  
+- MongoDB + Grafana setup is optional and can be deployed locally or to the cloud
 
 ---
 
-## 📄 License
-
-MIT License. You are free to use, modify, and distribute.
-
----
-
-## 🙋‍♀️ Author
-
-Developed by [Nidhi Shah](https://github.com/nidhi276)  
-💬 Feel free to open issues or discussions on this repository!
