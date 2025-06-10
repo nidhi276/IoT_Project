@@ -1,6 +1,6 @@
 # 🌐 IoT MQTT Sensor Simulator for Grafana
 
-This project simulates an IoT device that continuously publishes environmental sensor data (temperature, humidity, air quality, and pressure) to an MQTT broker. The data can be visualized on platforms like **Datacake**, stored in **MongoDB**, and monitored in real time using **Grafana** dashboards.
+This project simulates an IoT device that continuously publishes environmental sensor data (temperature, humidity, air quality, and pressure) to an MQTT broker. 
 
 ---
 
