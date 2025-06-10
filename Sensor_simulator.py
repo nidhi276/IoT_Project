@@ -20,11 +20,11 @@ MQTT_CONTROL_TOPIC = "sensorvalues/iot/control"
 # === Callback: When Connected ===
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
-        print("✅ Connected to MQTT Broker!")
+        print(" Connected to MQTT Broker!")
         client.subscribe(MQTT_CONTROL_TOPIC)
-        print(f"📥 Subscribed to {MQTT_CONTROL_TOPIC}")
+        print(f" Subscribed to {MQTT_CONTROL_TOPIC}")
     else:
-        print(f"❌ Failed to connect, return code {rc}")
+        print(f" Failed to connect, return code {rc}")
 
 # === Callback: When Published ===
 def on_publish(client, userdata, mid, properties=None, reason_code=None):
@@ -33,16 +33,16 @@ def on_publish(client, userdata, mid, properties=None, reason_code=None):
 # === Callback: When Control Message Received ===
 def on_message(client, userdata, msg):
     try:
-        print(f"[⬇️] Received from {msg.topic}: {msg.payload.decode()}")
+        print(f"Received from {msg.topic}: {msg.payload.decode()}")
         payload = json.loads(msg.payload.decode())
 
         if "Relay_Output" in payload:
             if payload["Relay_Output"]:
-                print("🔌 Relay ON - Simulated action executed.")
+                print(" Relay ON - Simulated action executed.")
             else:
-                print("❌ Relay OFF - Simulated action stopped.")
+                print(" Relay OFF - Simulated action stopped.")
     except Exception as e:
-        print(f"❗ Error in message handling: {e}")
+        print(f" Error in message handling: {e}")
 
 # === Setup MQTT Client ===
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=CLIENT_ID)
@@ -55,7 +55,7 @@ client.on_message = on_message
 try:
     client.connect(MQTT_BROKER, MQTT_PORT, 60)
 except Exception as e:
-    print(f"❌ Error connecting to broker: {e}")
+    print(f" Error connecting to broker: {e}")
     exit()
 
 client.loop_start()
@@ -76,7 +76,7 @@ try:
         data = simulate_sensor_data()
         payload = json.dumps(data)
         client.publish(MQTT_TOPIC, payload)
-        print(f"[📤] Published to {MQTT_TOPIC}: {payload}")
+        print(f" Published to {MQTT_TOPIC}: {payload}")
         time.sleep(5)
 
 except KeyboardInterrupt:
