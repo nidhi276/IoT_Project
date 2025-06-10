@@ -44,7 +44,7 @@ IoT_Project/
 3. **Run the simulator:**
 
    ```bash
-   python datacake_simulator.py
+   python Sensor_simulator.py
    ```
 
    Sensor data will be published to:
