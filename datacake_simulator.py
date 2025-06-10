@@ -43,7 +43,7 @@ def on_message(client, userdata, msg):
                 print("❌ Relay OFF - Simulated action stopped.")
     except Exception as e:
         print(f"❗ Error in message handling: {e}")
-6
+
 # === Setup MQTT Client ===
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=CLIENT_ID)
 client.username_pw_set(username=MQTT_USERNAME, password=MQTT_PASSWORD)
