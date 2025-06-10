@@ -20,7 +20,7 @@ This simulator mimics an IoT setup that:
 
 ```
 IoT_Project/
-├── datacake_simulator.py   # Main simulator script
+├── Sensor_simulator.py   # Main simulator script
 └── README.md               # Project overview and instructions
 ```
 
